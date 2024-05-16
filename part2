@@ -4,11 +4,9 @@ public class Main {
     public static void main(String[] args) {
         int[] data = { 87, 23, 56, 42, 91, 11 };
 
-        // Sort the data using merge sort
         mergeSort(data);
         System.out.println("Sorted Data: " + Arrays.toString(data));
 
-        // Perform an interpolation search on the sorted data
         int searchNum = 42;
         int result = interpolationSearch(data, searchNum);
 
