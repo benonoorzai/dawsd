@@ -7,13 +7,11 @@ public class Main {
         ArrayList<String> itemsList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
-        // Add initial items to the list
         itemsList.add("Apple");
         itemsList.add("Banana");
         itemsList.add("Orange");
         itemsList.add("Milk");
 
-        // Search items in the list
         System.out.println("Enter an item to search:");
         String searchItem = scanner.nextLine();
 
@@ -27,10 +25,8 @@ public class Main {
             }
         }
 
-        // Print the original list
         System.out.println("Original List: " + itemsList);
 
-        // Sort and print the list in alphabetical order
         Collections.sort(itemsList);
         System.out.println("Sorted List: " + itemsList);
     }
