@@ -2,18 +2,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        ArrayList<String> itemsList = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+class ListManager {
+    private ArrayList<String> itemsList;
 
+    public ListManager() {
+        itemsList = new ArrayList<>();
         itemsList.add("Apple");
         itemsList.add("Banana");
         itemsList.add("Orange");
         itemsList.add("Milk");
+    }
 
-        System.out.println("Enter an item to search:");
-        String searchItem = scanner.nextLine();
+    public void searchAndAddItem(String searchItem) {
+        Scanner scanner = new Scanner(System.in);
 
         if (itemsList.contains(searchItem)) {
             System.out.println("Item is already on the list.");
@@ -24,10 +25,61 @@ public class Main {
                 itemsList.add(searchItem);
             }
         }
+    }
 
+    public void displayList() {
         System.out.println("Original List: " + itemsList);
-
         Collections.sort(itemsList);
         System.out.println("Sorted List: " + itemsList);
+    }
+
+    // Additional searching algorithm: Linear search
+    public boolean linearSearch(String searchItem) {
+        for (String item : itemsList) {
+            if (item.equals(searchItem)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Additional sorting algorithm: Bubble sort
+    public void bubbleSort() {
+        int n = itemsList.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (itemsList.get(j).compareTo(itemsList.get(j + 1)) > 0) {
+                    // Swap items
+                    Collections.swap(itemsList, j, j + 1);
+                }
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ListManager listManager = new ListManager();
+
+        System.out.println("Enter an item to search:");
+        String searchItem = scanner.nextLine();
+
+        // Search using linear search
+        if (listManager.linearSearch(searchItem)) {
+            System.out.println("Item is already on the list.");
+        } else {
+            System.out.println("Item is not on the list. Do you want to add it? (yes/no)");
+            String addChoice = scanner.nextLine();
+            if (addChoice.equalsIgnoreCase("yes")) {
+                listManager.searchAndAddItem(searchItem);
+            }
+        }
+
+        listManager.displayList();
+
+        // Sort using bubble sort
+        listManager.bubbleSort();
+        System.out.println("Sorted List (Bubble Sort): " + listManager.getItemsList());
     }
 }
