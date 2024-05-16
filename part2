@@ -9,7 +9,7 @@ class DataManager {
     }
 
     public void searchNumber(int searchNum) {
-        Arrays.sort(data); // Ensure array is sorted for binary search
+        Arrays.sort(data);
         int result = Arrays.binarySearch(data, searchNum);
 
         if (result >= 0) {
@@ -19,7 +19,6 @@ class DataManager {
         }
     }
 
-    // Additional searching algorithm: Linear search
     public boolean linearSearch(int searchNum) {
         for (int num : data) {
             if (num == searchNum) {
@@ -29,7 +28,6 @@ class DataManager {
         return false;
     }
 
-    // Additional sorting algorithm: Selection sort
     public void selectionSort() {
         int n = data.length;
         for (int i = 0; i < n - 1; i++) {
@@ -39,11 +37,14 @@ class DataManager {
                     minIndex = j;
                 }
             }
-            // Swap elements
             int temp = data[minIndex];
             data[minIndex] = data[i];
             data[i] = temp;
         }
+    }
+
+    public int[] getData() {
+        return data;
     }
 }
 
@@ -55,14 +56,12 @@ public class Main {
         System.out.println("Enter a number to search:");
         int searchNum = scanner.nextInt();
 
-        // Search using linear search
         if (dataManager.linearSearch(searchNum)) {
             System.out.println("Number " + searchNum + " found (Linear Search).");
         } else {
             System.out.println("Number " + searchNum + " not found (Linear Search).");
         }
 
-        // Sort using selection sort
         dataManager.selectionSort();
         System.out.println("Sorted Data (Selection Sort): " + Arrays.toString(dataManager.getData()));
     }
