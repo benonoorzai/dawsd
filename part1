@@ -33,7 +33,6 @@ class ListManager {
         System.out.println("Sorted List: " + itemsList);
     }
 
-    // Additional searching algorithm: Linear search
     public boolean linearSearch(String searchItem) {
         for (String item : itemsList) {
             if (item.equals(searchItem)) {
@@ -43,17 +42,20 @@ class ListManager {
         return false;
     }
 
-    // Additional sorting algorithm: Bubble sort
     public void bubbleSort() {
         int n = itemsList.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
                 if (itemsList.get(j).compareTo(itemsList.get(j + 1)) > 0) {
-                    // Swap items
                     Collections.swap(itemsList, j, j + 1);
                 }
             }
         }
+    }
+
+    // Getter method for itemsList
+    public ArrayList<String> getItemsList() {
+        return itemsList;
     }
 }
 
@@ -65,7 +67,6 @@ public class Main {
         System.out.println("Enter an item to search:");
         String searchItem = scanner.nextLine();
 
-        // Search using linear search
         if (listManager.linearSearch(searchItem)) {
             System.out.println("Item is already on the list.");
         } else {
@@ -78,7 +79,6 @@ public class Main {
 
         listManager.displayList();
 
-        // Sort using bubble sort
         listManager.bubbleSort();
         System.out.println("Sorted List (Bubble Sort): " + listManager.getItemsList());
     }
