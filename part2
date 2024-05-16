@@ -1,67 +1,69 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        int[] data = { 87, 23, 56, 42, 91, 11 };
+class DataManager {
+    private int[] data;
 
-        mergeSort(data);
-        System.out.println("Sorted Data: " + Arrays.toString(data));
+    public DataManager() {
+        data = new int[]{87, 23, 56, 42, 91, 11};
+    }
 
-        int searchNum = 42;
-        int result = interpolationSearch(data, searchNum);
+    public void searchNumber(int searchNum) {
+        Arrays.sort(data); // Ensure array is sorted for binary search
+        int result = Arrays.binarySearch(data, searchNum);
 
-        if (result != -1) {
+        if (result >= 0) {
             System.out.println("Number " + searchNum + " found at index " + result + ".");
         } else {
             System.out.println("Number " + searchNum + " not found.");
         }
     }
 
-    public static void mergeSort(int[] arr) {
-        if (arr.length > 1) {
-            int mid = arr.length / 2;
-            int[] left = Arrays.copyOfRange(arr, 0, mid);
-            int[] right = Arrays.copyOfRange(arr, mid, arr.length);
-
-            mergeSort(left);
-            mergeSort(right);
-
-            merge(arr, left, right);
-        }
-    }
-
-    public static void merge(int[] result, int[] left, int[] right) {
-        int i = 0, j = 0, k = 0;
-        while (i < left.length && j < right.length) {
-            if (left[i] < right[j]) {
-                result[k++] = left[i++];
-            } else {
-                result[k++] = right[j++];
+    // Additional searching algorithm: Linear search
+    public boolean linearSearch(int searchNum) {
+        for (int num : data) {
+            if (num == searchNum) {
+                return true;
             }
         }
-        while (i < left.length) {
-            result[k++] = left[i++];
-        }
-        while (j < right.length) {
-            result[k++] = right[j++];
-        }
+        return false;
     }
 
-    public static int interpolationSearch(int[] arr, int target) {
-        int low = 0;
-        int high = arr.length - 1;
-
-        while (low <= high && arr[low] <= target && target <= arr[high]) {
-            int pos = low + ((target - arr[low]) * (high - low)) / (arr[high] - arr[low]);
-            if (arr[pos] == target) {
-                return pos;
-            } else if (arr[pos] < target) {
-                low = pos + 1;
-            } else {
-                high = pos - 1;
+    // Additional sorting algorithm: Selection sort
+    public void selectionSort() {
+        int n = data.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (data[j] < data[minIndex]) {
+                    minIndex = j;
+                }
             }
+            // Swap elements
+            int temp = data[minIndex];
+            data[minIndex] = data[i];
+            data[i] = temp;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        DataManager dataManager = new DataManager();
+
+        System.out.println("Enter a number to search:");
+        int searchNum = scanner.nextInt();
+
+        // Search using linear search
+        if (dataManager.linearSearch(searchNum)) {
+            System.out.println("Number " + searchNum + " found (Linear Search).");
+        } else {
+            System.out.println("Number " + searchNum + " not found (Linear Search).");
         }
 
-        return -1;
+        // Sort using selection sort
+        dataManager.selectionSort();
+        System.out.println("Sorted Data (Selection Sort): " + Arrays.toString(dataManager.getData()));
     }
 }
